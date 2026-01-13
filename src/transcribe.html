@@ -1,38 +1,50 @@
 <!DOCTYPE html>
 <html>
+
 <head>
     <meta charset="UTF-8">
     <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { 
-            display: flex; 
-            height: 100vh; 
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            display: flex;
+            height: 100vh;
             font-family: monospace;
             overflow: hidden;
         }
-        #viewer-pane { 
-            width: 50%; 
+
+        #viewer-pane {
+            width: 50%;
             border-right: 1px solid #ccc;
-            overflow-y: auto;
+            overflow: hidden;
             background: #2a2a2a;
             display: flex;
             flex-direction: column;
-            align-items: center;
-            padding: 20px;
+            align-items: stretch;
+            padding: 0;
         }
-        #viewer-pane img, #viewer-pane canvas {
-            max-width: 100%;
+
+        #viewer-pane img,
+        #viewer-pane canvas {
+            max-width: none;
             margin: 10px 0;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
         }
+
         #viewer-pane canvas {
             background: white;
         }
-        #editor-pane { 
-            width: 50%; 
+
+        #editor-pane {
+            width: 50%;
             display: flex;
             flex-direction: column;
         }
+
         #editor-header {
             padding: 8px;
             background: #f5f5f5;
@@ -42,11 +54,13 @@
             justify-content: space-between;
             align-items: center;
         }
+
         #editor-header-left {
             display: flex;
             gap: 10px;
             align-items: center;
         }
+
         #doc-selector {
             padding: 6px 10px;
             border: 1px solid #ccc;
@@ -57,20 +71,25 @@
             cursor: pointer;
             min-width: 250px;
         }
+
         #doc-selector:hover {
             border-color: #999;
         }
+
         #doc-selector option {
             padding: 4px;
         }
+
         #doc-selector optgroup {
             font-weight: bold;
             font-style: normal;
         }
+
         #header-section {
             border-bottom: 1px solid #ddd;
             background: #fafafa;
         }
+
         #header-toolbar {
             background: #e8e8e8;
             padding: 6px 8px;
@@ -79,10 +98,12 @@
             align-items: center;
             border-bottom: 1px solid #ddd;
         }
+
         #header-toolbar strong {
             font-size: 11px;
             color: #555;
         }
+
         #header-editor {
             width: 100%;
             height: 200px;
@@ -93,11 +114,13 @@
             resize: vertical;
             background: #fafafa;
         }
+
         #editor-container {
             flex: 1;
             display: flex;
             overflow: hidden;
         }
+
         #line-numbers {
             padding: 10px 8px;
             background: #f8f8f8;
@@ -110,9 +133,11 @@
             font-size: 14px;
             line-height: 1.5;
         }
+
         #line-numbers div {
             height: 21px;
         }
+
         #editor {
             flex: 1;
             padding: 10px;
@@ -125,9 +150,20 @@
             overflow-wrap: normal;
             overflow-x: auto;
         }
-        .status { color: #666; margin-left: 10px; }
-        .status.saving { color: #ff9800; }
-        .status.saved { color: #4caf50; }
+
+        .status {
+            color: #666;
+            margin-left: 10px;
+        }
+
+        .status.saving {
+            color: #ff9800;
+        }
+
+        .status.saved {
+            color: #4caf50;
+        }
+
         button {
             padding: 4px 10px;
             cursor: pointer;
@@ -136,40 +172,124 @@
             font-size: 11px;
             border-radius: 3px;
         }
+
         button:hover {
             background: #f0f0f0;
         }
-        .pdf-page-container {
-            margin: 10px 0;
-            background: white;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.3);
-            position: relative;
+
+        #pdf-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-width: 100%;
         }
+
+        #viewer-scroll-container {
+            flex: 1;
+            overflow: auto;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            padding: 20px;
+        }
+
+        .pdf-page-container {
+            margin: 10px auto;
+            background: white;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+            position: relative;
+            display: inline-block;
+            /* Allows it to expand beyond parent */
+        }
+
         .pdf-page-number {
             position: absolute;
             top: 5px;
             right: 5px;
-            background: rgba(0,0,0,0.7);
+            background: rgba(0, 0, 0, 0.7);
             color: white;
             padding: 3px 8px;
             border-radius: 3px;
             font-size: 11px;
         }
+
+        #viewer-controls {
+            position: relative;
+            top: 0;
+            background: #2a2a2a;
+            padding: 10px;
+            display: flex;
+            gap: 10px;
+            align-items: center;
+            justify-content: center;
+            border-bottom: 1px solid #444;
+            z-index: 10;
+            flex-shrink: 0;
+            width: 100%;
+        }
+
+        #viewer-controls button {
+            background: #444;
+            color: white;
+            border: 1px solid #666;
+            padding: 6px 12px;
+            cursor: pointer;
+            border-radius: 3px;
+        }
+
+        #viewer-controls button:hover {
+            background: #555;
+        }
+
+        #viewer-controls span {
+            color: #ccc;
+            font-size: 12px;
+            min-width: 60px;
+            text-align: center;
+        }
     </style>
 </head>
+
 <body>
-    <div id="viewer-pane"></div>
+    <div id="viewer-pane">
+        <div id="viewer-controls" style="display:none;">
+            <button id="zoom-out" title="Zoom Out (Ctrl+-)">−</button>
+            <span id="zoom-level">100%</span>
+            <button id="zoom-in" title="Zoom In (Ctrl++)">+</button>
+            <button id="zoom-reset" title="Reset Zoom">Reset</button>
+        </div>
+        <div id="viewer-scroll-container">
+            <div id="pdf-container"></div>
+        </div>
+    </div>
     <div id="editor-pane">
         <div id="editor-header">
             <div id="editor-header-left">
+                <a href="/select"
+                    style="padding: 4px 10px; text-decoration: none; color: #666; border: 1px solid #ccc; border-radius: 3px; font-size: 11px;">←
+                    Setup</a>
                 <select id="doc-selector">
                     <option value="">Loading documents...</option>
                 </select>
                 <button id="toggle-header-btn">Add Header</button>
             </div>
             <span class="status" id="status"></span>
+            <span id="stats" style="font-size:11px; color:#999; margin-left:10px;"></span>
+            <button id="shortcuts-btn" title="Keyboard Shortcuts">?</button>
         </div>
-        
+
+        <div id="shortcuts-help"
+            style="display:none; position:fixed; top:50%; left:50%; transform:translate(-50%,-50%); background:white; padding:20px; border:2px solid #333; border-radius:8px; box-shadow:0 4px 12px rgba(0,0,0,0.3); z-index:1000;">
+            <h3>Keyboard Shortcuts</h3>
+            <ul style="list-style:none; padding:0;">
+                <li><kbd>Ctrl+Enter</kbd> - Insert new page break</li>
+                <li><kbd>Ctrl+S</kbd> - Save (auto-saves on blur)</li>
+                <li><kbd>Arrows/PgUp/PgDn</kbd> - Navigate & sync viewer</li>
+            </ul>
+            <button onclick="document.getElementById('shortcuts-help').style.display='none'">Close</button>
+        </div>
+
+
         <div id="header-section" style="display: none;">
             <div id="header-toolbar">
                 <strong>Document Header</strong>
@@ -177,7 +297,7 @@
             </div>
             <textarea id="header-editor" spellcheck="false"></textarea>
         </div>
-        
+
         <div id="editor-container">
             <div id="line-numbers"></div>
             <textarea id="editor" spellcheck="false"></textarea>
@@ -186,6 +306,11 @@
 
     <!-- PDF.js -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+    <script>
+        document.getElementById('shortcuts-btn').onclick = () => {
+            document.getElementById('shortcuts-help').style.display = 'block';
+        };
+    </script>
     <script>
         pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
 
@@ -245,6 +370,18 @@ TRANSCRIPTION © [YEAR]
                 });
         }
 
+        function updateStats() {
+            const lines = editor.value.split('\n').filter(l => l.trim().startsWith('|') || (l.trim().length > 0 && !l.trim().startsWith('+++') && l.trim() !== '<<<>>>')).length;
+            const words = editor.value.split(/\s+/).filter(w => w.length > 0).length;
+            document.getElementById('stats').textContent = `${lines} lines · ${words} words`;
+        }
+
+        editor.addEventListener('input', () => {
+            updateLineNumbers();
+            updateStats();
+            debouncedSave();
+        });
+
         function populateDocumentSelector() {
             // Group documents by category
             const byCategory = {};
@@ -256,14 +393,14 @@ TRANSCRIPTION © [YEAR]
 
             // Build selector options
             docSelector.innerHTML = '';
-            
+
             // Sort categories
             const categories = Object.keys(byCategory).sort();
-            
+
             categories.forEach(category => {
                 const optgroup = document.createElement('optgroup');
                 optgroup.label = category.charAt(0).toUpperCase() + category.slice(1);
-                
+
                 byCategory[category]
                     .sort((a, b) => {
                         // Sort by year then title
@@ -279,7 +416,7 @@ TRANSCRIPTION © [YEAR]
                         }
                         optgroup.appendChild(option);
                     });
-                
+
                 docSelector.appendChild(optgroup);
             });
         }
@@ -356,32 +493,32 @@ TRANSCRIPTION © [YEAR]
             const cursorPos = editor.selectionStart;
             const textUpToCursor = editor.value.substring(0, cursorPos);
             const lines = textUpToCursor.split('\n');
-            
+
             let tomlDepth = 0;
             let currentScan = 1;
             let currentPage = '';
-            
+
             for (let i = 0; i < lines.length; i++) {
                 const line = lines[i].trim();
-                
+
                 if (line === '+++') {
                     tomlDepth++;
                 }
-                
+
                 const scanMatch = line.match(/^scan\s*=\s*(\d+)/);
                 if (scanMatch) currentScan = parseInt(scanMatch[1]);
-                
+
                 const pageMatch = line.match(/^page\s*=\s*["']?([^"'\s#]+)/);
                 if (pageMatch) currentPage = pageMatch[1];
             }
-            
+
             return { scan: currentScan, page: currentPage };
         }
 
         function syncViewerToScan(scanNum) {
             if (scanNum === lastSyncedScan) return;
             if (scanNum <= 0 || scanNum > imageElements.length) return;
-            
+
             lastSyncedScan = scanNum;
             const targetImg = imageElements[scanNum - 1];
             if (targetImg) {
@@ -391,34 +528,60 @@ TRANSCRIPTION © [YEAR]
             }
         }
 
-        async function renderPDF(url) {
+        let pdfDocument = null;
+        let pdfUrl = null;
+        let currentScale = 1.5;
+        const MIN_SCALE = 0.5;
+        const MAX_SCALE = 8.0;
+        const SCALE_STEP = 0.25;
+
+        async function renderPDF(url, scale = currentScale) {
             try {
+                pdfUrl = url;
+
                 const pdf = await pdfjsLib.getDocument(url).promise;
+                pdfDocument = pdf;
+
+                // Get or create container
+                let container = document.getElementById('pdf-container');
+                if (!container) {
+                    container = document.createElement('div');
+                    container.id = 'pdf-container';
+                    document.getElementById('viewer-scroll-container').appendChild(container);
+                }
+
+                container.innerHTML = '';
+                imageElements = [];
+
+                // Show controls
+                document.getElementById('viewer-controls').style.display = 'flex';
+                updateZoomDisplay();
+
                 const numPages = pdf.numPages;
-                
+
                 for (let pageNum = 1; pageNum <= numPages; pageNum++) {
                     const page = await pdf.getPage(pageNum);
-                    const viewport = page.getViewport({ scale: 1.5 });
-                    
-                    const container = document.createElement('div');
-                    container.className = 'pdf-page-container';
-                    
+                    const viewport = page.getViewport({ scale: scale });
+
+                    const pageContainer = document.createElement('div');
+                    pageContainer.className = 'pdf-page-container';
+
                     const canvas = document.createElement('canvas');
                     canvas.dataset.scanNum = pageNum;
                     canvas.style.transition = 'border 0.3s';
                     const context = canvas.getContext('2d');
                     canvas.height = viewport.height;
                     canvas.width = viewport.width;
-                    
+
                     const pageLabel = document.createElement('div');
                     pageLabel.className = 'pdf-page-number';
                     pageLabel.textContent = `Page ${pageNum}`;
-                    
-                    container.appendChild(canvas);
-                    container.appendChild(pageLabel);
-                    viewer.appendChild(container);
+
+                    pageContainer.appendChild(canvas);
+                    pageContainer.appendChild(pageLabel);
+                    container.appendChild(pageContainer);
                     imageElements.push(canvas);
-                    
+
                     await page.render({
                         canvasContext: context,
                         viewport: viewport
@@ -426,9 +589,75 @@ TRANSCRIPTION © [YEAR]
                 }
             } catch (error) {
                 console.error('Error rendering PDF:', error);
-                viewer.innerHTML = `<div style="color:white;padding:20px;">Error loading PDF: ${error.message}</div>`;
+                const errorDiv = document.createElement('div');
+                errorDiv.style = 'color:white;padding:20px;';
+                errorDiv.textContent = `Error loading PDF: ${error.message}`;
+                document.getElementById('viewer-scroll-container').appendChild(errorDiv);
             }
         }
+
+        function updateZoomDisplay() {
+            const percentage = Math.round(currentScale / 1.5 * 100);
+            document.getElementById('zoom-level').textContent = percentage + '%';
+        }
+
+        function zoomIn() {
+            if (currentScale < MAX_SCALE && pdfUrl) {
+                const rememberedScan = lastSyncedScan;  // Remember current position
+                currentScale = Math.min(MAX_SCALE, currentScale + SCALE_STEP);
+                renderPDF(pdfUrl, currentScale).then(() => {
+                    // Re-sync to same page after zoom
+                    if (rememberedScan > 0) {
+                        setTimeout(() => syncViewerToScan(rememberedScan), 100);
+                    }
+                });
+            }
+        }
+
+        function zoomOut() {
+            if (currentScale > MIN_SCALE && pdfUrl) {
+                const rememberedScan = lastSyncedScan;
+                currentScale = Math.max(MIN_SCALE, currentScale - SCALE_STEP);
+                renderPDF(pdfUrl, currentScale).then(() => {
+                    if (rememberedScan > 0) {
+                        setTimeout(() => syncViewerToScan(rememberedScan), 100);
+                    }
+                });
+            }
+        }
+
+        function zoomReset() {
+            if (pdfUrl) {
+                const rememberedScan = lastSyncedScan;
+                currentScale = 1.5;
+                renderPDF(pdfUrl, currentScale).then(() => {
+                    if (rememberedScan > 0) {
+                        setTimeout(() => syncViewerToScan(rememberedScan), 100);
+                    }
+                });
+            }
+        }
+
+        // Add event listeners
+        document.getElementById('zoom-in').addEventListener('click', zoomIn);
+        document.getElementById('zoom-out').addEventListener('click', zoomOut);
+        document.getElementById('zoom-reset').addEventListener('click', zoomReset);
+
+        // Keyboard shortcuts
+        document.addEventListener('keydown', (e) => {
+            if (e.ctrlKey || e.metaKey) {
+                if (e.key === '=' || e.key === '+') {
+                    e.preventDefault();
+                    zoomIn();
+                } else if (e.key === '-') {
+                    e.preventDefault();
+                    zoomOut();
+                } else if (e.key === '0') {
+                    e.preventDefault();
+                    zoomReset();
+                }
+            }
+        });
 
         function updateLineNumbers() {
             const textLines = editor.value.split('\n');
@@ -437,45 +666,45 @@ TRANSCRIPTION © [YEAR]
             let inToml = false;
             let skipNextBullet = false;
             let pendingScanNum = null;
-            
+
             textLines.forEach((line, idx) => {
                 const trimmed = line.trim();
-                
+
                 if (trimmed === '+++' && !inToml) {
                     inToml = true;
-                    
+
                     let pageNum = '?';
                     let scanNum = '?';
                     let foundClosing = false;
-                    
+
                     for (let i = idx + 1; i < textLines.length && !foundClosing; i++) {
                         const nextLine = textLines[i].trim();
-                        
+
                         if (nextLine === '+++') {
                             foundClosing = true;
                             break;
                         }
-                        
+
                         const pageMatch = nextLine.match(/^page\s*=\s*["']?([^"'\s#]+)/);
                         if (pageMatch) pageNum = pageMatch[1] || '?';
-                        
+
                         const scanMatch = nextLine.match(/^scan\s*=\s*(\d+)/);
                         if (scanMatch) scanNum = scanMatch[1];
                     }
-                    
+
                     html += `<div style="background:#e0e0e0;padding:2px 4px;font-weight:bold;font-size:11px;border-top:2px solid #999;">p.${pageNum}</div>`;
                     lineInPage = 0;
                     skipNextBullet = true;
                     pendingScanNum = scanNum;
                     return;
                 }
-                
+
                 if (trimmed === '+++' && inToml) {
                     inToml = false;
                     html += '<div style="color:#999;">•</div>';
                     return;
                 }
-                
+
                 if (inToml) {
                     if (skipNextBullet && pendingScanNum) {
                         html += `<div style="background:#f0f0f0;padding:2px 4px;font-size:10px;color:#666;">s.${pendingScanNum}</div>`;
@@ -486,13 +715,13 @@ TRANSCRIPTION © [YEAR]
                     }
                     return;
                 }
-                
+
                 if (trimmed === '<<<>>>') {
                     html += '<div style="background:#999;color:#fff;text-align:center;font-size:10px;line-height:21px;">━━━</div>';
                     lineInPage = 0;
                     return;
                 }
-                
+
                 if (trimmed.length > 0) {
                     lineInPage++;
                     html += `<div>${lineInPage}</div>`;
@@ -500,7 +729,7 @@ TRANSCRIPTION © [YEAR]
                     html += '<div style="color:#ccc;">·</div>';
                 }
             });
-            
+
             lineNumbers.innerHTML = html;
         }
 
@@ -513,14 +742,18 @@ TRANSCRIPTION © [YEAR]
                 .then(r => r.json())
                 .then(data => {
                     if (data.type === 'pdf') {
-                        renderPDF(data.path);
+                        const pdfUrl = data.path;
+                        renderPDF(pdfUrl);
                     } else if (data.type === 'images' && data.images) {
+                        document.getElementById('viewer-controls').style.display = 'none';
+                        const scrollContainer = document.getElementById('viewer-scroll-container');
+
                         data.images.forEach((src, idx) => {
                             const img = document.createElement('img');
                             img.src = src;
                             img.dataset.scanNum = idx + 1;
                             img.style.transition = 'border 0.3s';
-                            viewer.appendChild(img);
+                            scrollContainer.appendChild(img);
                             imageElements.push(img);
                         });
                     }
@@ -534,13 +767,14 @@ TRANSCRIPTION © [YEAR]
                 documentHeader = parsed.header;
                 editor.value = parsed.content;
                 currentContent = data.content;
-                
+
                 if (documentHeader) {
                     headerEditor.value = documentHeader;
                     toggleHeaderBtn.textContent = 'Show Header';
                 }
-                
+
                 updateLineNumbers();
+                updateStats();
             } else if (data.status === 'saved') {
                 currentContent = serializeDocument();
                 status.textContent = '✓ saved';
@@ -590,20 +824,20 @@ TRANSCRIPTION © [YEAR]
                     syncViewerToScan(pageData.scan);
                 }, 150);
             }
-            
+
             if (e.ctrlKey && e.key === 'Enter') {
                 e.preventDefault();
                 const pageData = getCurrentPageData();
                 const nextScan = pageData.scan + 1;
-                
+
                 const pos = editor.selectionStart;
                 const pageBreak = `\n+++\npage = ""\nscan = ${nextScan}\n+++\n`;
-                
+
                 const before = editor.value.substring(0, pos);
                 const after = editor.value.substring(pos);
                 editor.value = before + pageBreak + after;
                 editor.selectionStart = editor.selectionEnd = pos + pageBreak.length;
-                
+
                 updateLineNumbers();
                 debouncedSave();
                 syncViewerToScan(nextScan);
@@ -615,4 +849,5 @@ TRANSCRIPTION © [YEAR]
         });
     </script>
 </body>
+
 </html>

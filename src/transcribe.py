@@ -253,4 +253,4 @@ async def startup():
 async def selector():
     return FileResponse("selector.html")
 
-app.mount("/static", StaticFiles(directory="static", follow_symlink=True), name="static")
+# app.mount("/static", StaticFiles(directory="static", follow_symlink=True), name="static")
