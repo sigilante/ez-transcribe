@@ -12,6 +12,8 @@ Released by the [Illinois Deseret Consortium](http://faculty.las.illinois.edu/rs
 * TOML-based page annotation
 * Auto-saved progress
 
+![](./img/image.png)
+
 ## Usage
 
 1. Install the required dependencies:
