@@ -4,6 +4,8 @@ A simple tool for transcribing documents into plaintext.
 
 Released by the [Illinois Deseret Consortium](http://faculty.las.illinois.edu/rshosted/deseret.html) under the MIT License.
 
+![](./img/hero.webp)
+
 ## Features
 
 * Specify repositories to transcribe from
