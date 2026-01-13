@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Document Selector</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: system-ui, -apple-system, sans-serif;
+            background: #f5f5f5;
+            padding: 20px;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        h1 { margin-bottom: 20px; color: #333; }
+        .config-section {
+            background: #f9f9f9;
+            padding: 15px;
+            border-radius: 4px;
+            margin-bottom: 30px;
+        }
+        .config-section label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: 500;
+        }
+        .config-section input {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-family: monospace;
+        }
+        .config-section button {
+            margin-top: 10px;
+            padding: 8px 16px;
+            background: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        .config-section button:hover {
+            background: #45a049;
+        }
+        .status {
+            display: inline-block;
+            margin-left: 10px;
+            padding: 4px 8px;
+            border-radius: 3px;
+            font-size: 12px;
+        }
+        .status.ok { background: #4CAF50; color: white; }
+        .status.error { background: #f44336; color: white; }
+        .filters {
+            margin-bottom: 20px;
+            display: flex;
+            gap: 10px;
+        }
+        .filters select, .filters input {
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+        .doc-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 15px;
+        }
+        .doc-card {
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            padding: 15px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .doc-card:hover {
+            border-color: #4CAF50;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        .doc-card h3 {
+            margin-bottom: 8px;
+            color: #333;
+            font-size: 16px;
+        }
+        .doc-card .meta {
+            font-size: 12px;
+            color: #666;
+            margin-bottom: 8px;
+        }
+        .doc-card .badges {
+            display: flex;
+            gap: 5px;
+            flex-wrap: wrap;
+        }
+        .badge {
+            padding: 3px 8px;
+            border-radius: 3px;
+            font-size: 11px;
+            font-weight: 500;
+        }
+        .badge.category { background: #e3f2fd; color: #1976d2; }
+        .badge.has-source { background: #e8f5e9; color: #388e3c; }
+        .badge.no-source { background: #ffebee; color: #c62828; }
+        .badge.has-transcript { background: #fff3e0; color: #f57c00; }
+        .badge.no-transcript { background: #fce4ec; color: #c2185b; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Deseret Transcription Tool</h1>
+        
+        <div class="config-section">
+            <label for="repo-path">Repository Path:</label>
+            <input type="text" id="repo-path" placeholder="/path/to/idc-corpora">
+            <button id="save-config">Save Configuration</button>
+            <span class="status" id="config-status"></span>
+        </div>
+        
+        <div class="filters">
+            <select id="category-filter">
+                <option value="">All Categories</option>
+                <option value="books">Books</option>
+                <option value="newspapers">Newspapers</option>
+                <option value="letters">Letters</option>
+                <option value="journals">Journals</option>
+            </select>
+            <input type="text" id="search" placeholder="Search documents...">
+        </div>
+        
+        <div class="doc-grid" id="doc-grid"></div>
+    </div>
+
+    <script>
+        let allDocuments = [];
+        
+        // Load config
+        fetch('/api/config')
+            .then(r => r.json())
+            .then(config => {
+                if (config.repo_path) {
+                    document.getElementById('repo-path').value = config.repo_path;
+                }
+            });
+        
+        // Save config
+        document.getElementById('save-config').addEventListener('click', () => {
+            const path = document.getElementById('repo-path').value;
+            const statusEl = document.getElementById('config-status');
+            
+            fetch('/api/config', {
+                method: 'POST',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify({repo_path: path})
+            })
+            .then(r => r.json())
+            .then(data => {
+                statusEl.textContent = '✓ Saved';
+                statusEl.className = 'status ok';
+                setTimeout(() => statusEl.textContent = '', 2000);
+                loadDocuments();
+            })
+            .catch(err => {
+                statusEl.textContent = '✗ Error';
+                statusEl.className = 'status error';
+            });
+        });
+        
+        // Load documents
+        function loadDocuments() {
+            fetch('/api/documents')
+                .then(r => r.json())
+                .then(data => {
+                    allDocuments = data.documents;
+                    renderDocuments(allDocuments);
+                });
+        }
+        
+        // Render documents
+        function renderDocuments(docs) {
+            const grid = document.getElementById('doc-grid');
+            grid.innerHTML = '';
+            
+            docs.forEach(doc => {
+                const card = document.createElement('div');
+                card.className = 'doc-card';
+                card.onclick = () => window.location.href = `/?doc=${doc.id}`;
+                
+                card.innerHTML = `
+                    <h3>${doc.title}</h3>
+                    <div class="meta">${doc.category} · ${doc.year || 'n/a'}</div>
+                    <div class="badges">
+                        <span class="badge category">${doc.category}</span>
+                        <span class="badge ${doc.source_exists ? 'has-source' : 'no-source'}">
+                            ${doc.source_exists ? '✓ source' : '✗ no source'}
+                        </span>
+                        <span class="badge ${doc.transcript_exists ? 'has-transcript' : 'no-transcript'}">
+                            ${doc.transcript_exists ? '✓ transcript' : '✗ no transcript'}
+                        </span>
+                    </div>
+                `;
+                
+                grid.appendChild(card);
+            });
+        }
+        
+        // Filters
+        document.getElementById('category-filter').addEventListener('change', applyFilters);
+        document.getElementById('search').addEventListener('input', applyFilters);
+        
+        function applyFilters() {
+            const category = document.getElementById('category-filter').value;
+            const search = document.getElementById('search').value.toLowerCase();
+            
+            let filtered = allDocuments;
+            
+            if (category) {
+                filtered = filtered.filter(d => d.category === category);
+            }
+            
+            if (search) {
+                filtered = filtered.filter(d => 
+                    d.title.toLowerCase().includes(search) ||
+                    d.id.toLowerCase().includes(search)
+                );
+            }
+            
+            renderDocuments(filtered);
+        }
+        
+        // Initial load
+        loadDocuments();
+    </script>
+</body>
+</html>

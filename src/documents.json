@@ -1,0 +1,852 @@
+{
+  "documents": [
+    {
+      "id": "D1B",
+      "title": "Deseret First Book (1868)",
+      "source": "pdf/deseret/thedeseretfirstb00unse.pdf",
+      "transcript": "txt/deseret/deseretfirstbook.txt",
+      "category": "books",
+      "year": 1868
+    },
+    {
+      "id": "D2B",
+      "title": "Deseret Second Book (1868)",
+      "source": "pdf/deseret/thedeseretsecond00unse.pdf",
+      "transcript": "txt/deseret/deseretsecondbook.txt",
+      "category": "books",
+      "year": 1868
+    },
+    {
+      "id": "BOM-1869",
+      "title": "Book of Mormon - Deseret Alphabet (1869)",
+      "source": "pdf/deseret/bookofmormdeseretalpha00.pdf",
+      "transcript": "txt/deseret/bom69.txt",
+      "category": "books",
+      "year": 1869
+    },
+    {
+      "id": "letter-1853-12-08",
+      "title": "Letter: WR to BY (Dec 8, 1853)",
+      "source": "pdf/deseret/CR_1234_1box_41_fd._28-Willard_Richards_letter-QUICKVIEW.pdf",
+      "transcript": "txt/deseret/1853-12-08--wr-to-by.txt",
+      "category": "letters",
+      "year": 1853
+    },
+    {
+      "id": "letter-1855-07-16",
+      "title": "Letter: HWC to JT (Jul 16, 1855)",
+      "source": "",
+      "transcript": "txt/deseret/1855-07-16--hwc-to-jt.txt",
+      "category": "letters",
+      "year": 1855
+    },
+    {
+      "id": "letter-1869-08-14",
+      "title": "Letter: AS to LRP (Aug 14, 1869)",
+      "source": "",
+      "transcript": "txt/deseret/1869-08-14--as-to-lrp.txt",
+      "category": "letters",
+      "year": 1869
+    },
+    {
+      "id": "letter-1885",
+      "title": "Letter: FDR to HHB (1885)",
+      "source": "",
+      "transcript": "txt/deseret/1885--fdr-to-hhb.txt",
+      "category": "letters",
+      "year": 1885
+    },
+    {
+      "id": "3nephi",
+      "title": "3 Nephi",
+      "source": "",
+      "transcript": "txt/deseret/3nephi.txt",
+      "category": "scripture",
+      "year": null
+    },
+    {
+      "id": "nt-matthew",
+      "title": "New Testament - Matthew",
+      "source": "",
+      "transcript": "txt/deseret/nt-matthew.txt",
+      "category": "scripture",
+      "year": null
+    },
+    {
+      "id": "nt-mark",
+      "title": "New Testament - Mark",
+      "source": "",
+      "transcript": "txt/deseret/nt_mark.txt",
+      "category": "scripture",
+      "year": null
+    },
+    {
+      "id": "nt-luke",
+      "title": "New Testament - Luke",
+      "source": "",
+      "transcript": "txt/deseret/nt_luke.txt",
+      "category": "scripture",
+      "year": null
+    },
+    {
+      "id": "nt-john",
+      "title": "New Testament - John",
+      "source": "",
+      "transcript": "txt/deseret/nt_john.txt",
+      "category": "scripture",
+      "year": null
+    },
+    {
+      "id": "nt-acts",
+      "title": "New Testament - Acts",
+      "source": "",
+      "transcript": "txt/deseret/nt_acts.txt",
+      "category": "scripture",
+      "year": null
+    },
+    {
+      "id": "ot-genesis",
+      "title": "Old Testament - Genesis",
+      "source": "",
+      "transcript": "txt/deseret/ot-genesis.txt",
+      "category": "scripture",
+      "year": null
+    },
+    {
+      "id": "wwj",
+      "title": "WWJ",
+      "source": "",
+      "transcript": "txt/deseret/wwj.txt",
+      "category": "other",
+      "year": null
+    },
+    {
+      "id": "DN-1859-02-16",
+      "title": "Deseret News - Feb 16, 1859",
+      "source": "txt/deseret/DesNews/pdfs/1859-02-16.pdf",
+      "transcript": "txt/deseret/DesNews/corrected/1859-02-16.txt",
+      "category": "newspapers",
+      "year": 1859
+    },
+    {
+      "id": "DN-1859-02-23",
+      "title": "Deseret News - Feb 23, 1859",
+      "source": "txt/deseret/DesNews/pdfs/1859-02-23.pdf",
+      "transcript": "txt/deseret/DesNews/corrected/1859-02-23.txt",
+      "category": "newspapers",
+      "year": 1859
+    },
+    {
+      "id": "DN-1859-03-02",
+      "title": "Deseret News - Mar 2, 1859",
+      "source": "txt/deseret/DesNews/pdfs/1859-03-02.pdf",
+      "transcript": "txt/deseret/DesNews/corrected/1859-03-02.txt",
+      "category": "newspapers",
+      "year": 1859
+    },
+    {
+      "id": "DN-1859-03-09",
+      "title": "Deseret News - Mar 9, 1859",
+      "source": "txt/deseret/DesNews/pdfs/1859-03-09.pdf",
+      "transcript": "txt/deseret/DesNews/corrected/1859-03-09.txt",
+      "category": "newspapers",
+      "year": 1859
+    },
+    {
+      "id": "DN-1859-03-16",
+      "title": "Deseret News - Mar 16, 1859",
+      "source": "txt/deseret/DesNews/pdfs/1859-03-16.pdf",
+      "transcript": "txt/deseret/DesNews/corrected/1859-03-16.txt",
+      "category": "newspapers",
+      "year": 1859
+    },
+    {
+      "id": "DN-1859-03-23",
+      "title": "Deseret News - Mar 23, 1859",
+      "source": "txt/deseret/DesNews/pdfs/1859-03-23.pdf",
+      "transcript": "txt/deseret/DesNews/corrected/1859-03-23.txt",
+      "category": "newspapers",
+      "year": 1859
+    },
+    {
+      "id": "DN-1859-04-06",
+      "title": "Deseret News - Apr 6, 1859",
+      "source": "txt/deseret/DesNews/pdfs/1859-04-06.pdf",
+      "transcript": "txt/deseret/DesNews/corrected/1859-04-06.txt",
+      "category": "newspapers",
+      "year": 1859
+    },
+    {
+      "id": "DN-1859-04-13",
+      "title": "Deseret News - Apr 13, 1859",
+      "source": "txt/deseret/DesNews/pdfs/1859-04-13.pdf",
+      "transcript": "txt/deseret/DesNews/corrected/1859-04-13.txt",
+      "category": "newspapers",
+      "year": 1859
+    },
+    {
+      "id": "DN-1859-04-20",
+      "title": "Deseret News - Apr 20, 1859",
+      "source": "txt/deseret/DesNews/pdfs/1859-04-20.pdf",
+      "transcript": "txt/deseret/DesNews/corrected/1859-04-20.txt",
+      "category": "newspapers",
+      "year": 1859
+    },
+    {
+      "id": "DN-1859-04-27",
+      "title": "Deseret News - Apr 27, 1859",
+      "source": "txt/deseret/DesNews/pdfs/1859-04-27.pdf",
+      "transcript": "txt/deseret/DesNews/corrected/1859-04-27.txt",
+      "category": "newspapers",
+      "year": 1859
+    },
+    {
+      "id": "DN-1859-05-04",
+      "title": "Deseret News - May 4, 1859",
+      "source": "txt/deseret/DesNews/pdfs/1859-05-04.pdf",
+      "transcript": "txt/deseret/DesNews/corrected/1859-05-04.txt",
+      "category": "newspapers",
+      "year": 1859
+    },
+    {
+      "id": "DN-1859-05-11",
+      "title": "Deseret News - May 11, 1859",
+      "source": "txt/deseret/DesNews/pdfs/1859-05-11.pdf",
+      "transcript": "txt/deseret/DesNews/corrected/1859-05-11.txt",
+      "category": "newspapers",
+      "year": 1859
+    },
+    {
+      "id": "DN-1859-05-18",
+      "title": "Deseret News - May 18, 1859",
+      "source": "txt/deseret/DesNews/pdfs/1859-05-18.pdf",
+      "transcript": "txt/deseret/DesNews/corrected/1859-05-18.txt",
+      "category": "newspapers",
+      "year": 1859
+    },
+    {
+      "id": "DN-1859-05-25",
+      "title": "Deseret News - May 25, 1859",
+      "source": "txt/deseret/DesNews/pdfs/1859-05-25.pdf",
+      "transcript": "txt/deseret/DesNews/corrected/1859-05-25.txt",
+      "category": "newspapers",
+      "year": 1859
+    },
+    {
+      "id": "DN-1859-06-01",
+      "title": "Deseret News - Jun 1, 1859",
+      "source": "txt/deseret/DesNews/pdfs/1859-06-01.pdf",
+      "transcript": "txt/deseret/DesNews/corrected/1859-06-01.txt",
+      "category": "newspapers",
+      "year": 1859
+    },
+    {
+      "id": "DN-1859-06-08",
+      "title": "Deseret News - Jun 8, 1859",
+      "source": "txt/deseret/DesNews/pdfs/1859-06-08.pdf",
+      "transcript": "txt/deseret/DesNews/corrected/1859-06-08.txt",
+      "category": "newspapers",
+      "year": 1859
+    },
+    {
+      "id": "DN-1859-06-15",
+      "title": "Deseret News - Jun 15, 1859",
+      "source": "txt/deseret/DesNews/pdfs/1859-06-15.pdf",
+      "transcript": "txt/deseret/DesNews/corrected/1859-06-15.txt",
+      "category": "newspapers",
+      "year": 1859
+    },
+    {
+      "id": "DN-1859-06-22",
+      "title": "Deseret News - Jun 22, 1859",
+      "source": "txt/deseret/DesNews/pdfs/1859-06-22.pdf",
+      "transcript": "txt/deseret/DesNews/corrected/1859-06-22.txt",
+      "category": "newspapers",
+      "year": 1859
+    },
+    {
+      "id": "DN-1859-06-29",
+      "title": "Deseret News - Jun 29, 1859",
+      "source": "txt/deseret/DesNews/pdfs/1859-06-29.pdf",
+      "transcript": "txt/deseret/DesNews/corrected/1859-06-29.txt",
+      "category": "newspapers",
+      "year": 1859
+    },
+    {
+      "id": "DN-1859-07-06",
+      "title": "Deseret News - Jul 6, 1859",
+      "source": "txt/deseret/DesNews/pdfs/1859-07-06.pdf",
+      "transcript": "txt/deseret/DesNews/corrected/1859-07-06.txt",
+      "category": "newspapers",
+      "year": 1859
+    },
+    {
+      "id": "DN-1859-07-13",
+      "title": "Deseret News - Jul 13, 1859",
+      "source": "txt/deseret/DesNews/pdfs/1859-07-13.pdf",
+      "transcript": "txt/deseret/DesNews/corrected/1859-07-13.txt",
+      "category": "newspapers",
+      "year": 1859
+    },
+    {
+      "id": "DN-1859-07-20",
+      "title": "Deseret News - Jul 20, 1859",
+      "source": "txt/deseret/DesNews/pdfs/1859-07-20.pdf",
+      "transcript": "txt/deseret/DesNews/corrected/1859-07-20.txt",
+      "category": "newspapers",
+      "year": 1859
+    },
+    {
+      "id": "DN-1859-07-27",
+      "title": "Deseret News - Jul 27, 1859",
+      "source": "txt/deseret/DesNews/pdfs/1859-07-27.pdf",
+      "transcript": "txt/deseret/DesNews/corrected/1859-07-27.txt",
+      "category": "newspapers",
+      "year": 1859
+    },
+    {
+      "id": "DN-1859-08-03",
+      "title": "Deseret News - Aug 3, 1859",
+      "source": "txt/deseret/DesNews/pdfs/1859-08-03.pdf",
+      "transcript": "txt/deseret/DesNews/corrected/1859-08-03.txt",
+      "category": "newspapers",
+      "year": 1859
+    },
+    {
+      "id": "DN-1859-08-10",
+      "title": "Deseret News - Aug 10, 1859",
+      "source": "txt/deseret/DesNews/pdfs/1859-08-10.pdf",
+      "transcript": "txt/deseret/DesNews/corrected/1859-08-10.txt",
+      "category": "newspapers",
+      "year": 1859
+    },
+    {
+      "id": "DN-1859-08-17",
+      "title": "Deseret News - Aug 17, 1859",
+      "source": "txt/deseret/DesNews/pdfs/1859-08-17.pdf",
+      "transcript": "txt/deseret/DesNews/corrected/1859-08-17.txt",
+      "category": "newspapers",
+      "year": 1859
+    },
+    {
+      "id": "DN-1859-08-24",
+      "title": "Deseret News - Aug 24, 1859",
+      "source": "txt/deseret/DesNews/pdfs/1859-08-24.pdf",
+      "transcript": "txt/deseret/DesNews/corrected/1859-08-24.txt",
+      "category": "newspapers",
+      "year": 1859
+    },
+    {
+      "id": "DN-1859-08-31",
+      "title": "Deseret News - Aug 31, 1859",
+      "source": "txt/deseret/DesNews/pdfs/1859-08-31.pdf",
+      "transcript": "txt/deseret/DesNews/corrected/1859-08-31.txt",
+      "category": "newspapers",
+      "year": 1859
+    },
+    {
+      "id": "DN-1859-09-07",
+      "title": "Deseret News - Sep 7, 1859",
+      "source": "txt/deseret/DesNews/pdfs/1859-09-07.pdf",
+      "transcript": "txt/deseret/DesNews/corrected/1859-09-07.txt",
+      "category": "newspapers",
+      "year": 1859
+    },
+    {
+      "id": "DN-1859-09-14",
+      "title": "Deseret News - Sep 14, 1859",
+      "source": "txt/deseret/DesNews/pdfs/1859-09-14.pdf",
+      "transcript": "txt/deseret/DesNews/corrected/1859-09-14.txt",
+      "category": "newspapers",
+      "year": 1859
+    },
+    {
+      "id": "DN-1859-09-21",
+      "title": "Deseret News - Sep 21, 1859",
+      "source": "txt/deseret/DesNews/pdfs/1859-09-21.pdf",
+      "transcript": "txt/deseret/DesNews/corrected/1859-09-21.txt",
+      "category": "newspapers",
+      "year": 1859
+    },
+    {
+      "id": "DN-1859-09-28",
+      "title": "Deseret News - Sep 28, 1859",
+      "source": "txt/deseret/DesNews/pdfs/1859-09-28.pdf",
+      "transcript": "txt/deseret/DesNews/corrected/1859-09-28.txt",
+      "category": "newspapers",
+      "year": 1859
+    },
+    {
+      "id": "DN-1859-10-12",
+      "title": "Deseret News - Oct 12, 1859",
+      "source": "txt/deseret/DesNews/pdfs/1859-10-12.pdf",
+      "transcript": "txt/deseret/DesNews/corrected/1859-10-12.txt",
+      "category": "newspapers",
+      "year": 1859
+    },
+    {
+      "id": "DN-1859-10-19",
+      "title": "Deseret News - Oct 19, 1859",
+      "source": "txt/deseret/DesNews/pdfs/1859-10-19.pdf",
+      "transcript": "txt/deseret/DesNews/corrected/1859-10-19.txt",
+      "category": "newspapers",
+      "year": 1859
+    },
+    {
+      "id": "DN-1859-11-02",
+      "title": "Deseret News - Nov 2, 1859",
+      "source": "txt/deseret/DesNews/pdfs/1859-11-02.pdf",
+      "transcript": "txt/deseret/DesNews/corrected/1859-11-02.txt",
+      "category": "newspapers",
+      "year": 1859
+    },
+    {
+      "id": "DN-1859-11-09",
+      "title": "Deseret News - Nov 9, 1859",
+      "source": "txt/deseret/DesNews/pdfs/1859-11-09.pdf",
+      "transcript": "txt/deseret/DesNews/corrected/1859-11-09.txt",
+      "category": "newspapers",
+      "year": 1859
+    },
+    {
+      "id": "DN-1859-11-16",
+      "title": "Deseret News - Nov 16, 1859",
+      "source": "txt/deseret/DesNews/pdfs/1859-11-16.pdf",
+      "transcript": "txt/deseret/DesNews/corrected/1859-11-16.txt",
+      "category": "newspapers",
+      "year": 1859
+    },
+    {
+      "id": "DN-1859-11-23",
+      "title": "Deseret News - Nov 23, 1859",
+      "source": "txt/deseret/DesNews/pdfs/1859-11-23.pdf",
+      "transcript": "txt/deseret/DesNews/corrected/1859-11-23.txt",
+      "category": "newspapers",
+      "year": 1859
+    },
+    {
+      "id": "DN-1859-11-30",
+      "title": "Deseret News - Nov 30, 1859",
+      "source": "txt/deseret/DesNews/pdfs/1859-11-30.pdf",
+      "transcript": "txt/deseret/DesNews/corrected/1859-11-30.txt",
+      "category": "newspapers",
+      "year": 1859
+    },
+    {
+      "id": "DN-1859-12-14",
+      "title": "Deseret News - Dec 14, 1859",
+      "source": "txt/deseret/DesNews/pdfs/1859-12-14.pdf",
+      "transcript": "txt/deseret/DesNews/corrected/1859-12-14.txt",
+      "category": "newspapers",
+      "year": 1859
+    },
+    {
+      "id": "DN-1859-12-21",
+      "title": "Deseret News - Dec 21, 1859",
+      "source": "txt/deseret/DesNews/pdfs/1859-12-21.pdf",
+      "transcript": "txt/deseret/DesNews/corrected/1859-12-21.txt",
+      "category": "newspapers",
+      "year": 1859
+    },
+    {
+      "id": "DN-1859-12-28",
+      "title": "Deseret News - Dec 28, 1859",
+      "source": "txt/deseret/DesNews/pdfs/1859-12-28.pdf",
+      "transcript": "txt/deseret/DesNews/corrected/1859-12-28.txt",
+      "category": "newspapers",
+      "year": 1859
+    },
+    {
+      "id": "DN-1860-01-04",
+      "title": "Deseret News - Jan 4, 1860",
+      "source": "txt/deseret/DesNews/pdfs/1860-01-04.pdf",
+      "transcript": "txt/deseret/DesNews/corrected/1860-01-04.txt",
+      "category": "newspapers",
+      "year": 1860
+    },
+    {
+      "id": "DN-1860-01-11",
+      "title": "Deseret News - Jan 11, 1860",
+      "source": "txt/deseret/DesNews/pdfs/1860-01-11.pdf",
+      "transcript": "txt/deseret/DesNews/corrected/1860-01-11.txt",
+      "category": "newspapers",
+      "year": 1860
+    },
+    {
+      "id": "DN-1860-01-25",
+      "title": "Deseret News - Jan 25, 1860",
+      "source": "txt/deseret/DesNews/pdfs/1860-01-25.pdf",
+      "transcript": "txt/deseret/DesNews/corrected/1860-01-25.txt",
+      "category": "newspapers",
+      "year": 1860
+    },
+    {
+      "id": "DN-1860-02-01",
+      "title": "Deseret News - Feb 1, 1860",
+      "source": "txt/deseret/DesNews/pdfs/1860-02-01.pdf",
+      "transcript": "txt/deseret/DesNews/corrected/1860-02-01.txt",
+      "category": "newspapers",
+      "year": 1860
+    },
+    {
+      "id": "DN-1860-02-08",
+      "title": "Deseret News - Feb 8, 1860",
+      "source": "txt/deseret/DesNews/pdfs/1860-02-08.pdf",
+      "transcript": "txt/deseret/DesNews/corrected/1860-02-08.txt",
+      "category": "newspapers",
+      "year": 1860
+    },
+    {
+      "id": "DN-1860-02-15",
+      "title": "Deseret News - Feb 15, 1860",
+      "source": "txt/deseret/DesNews/pdfs/1860-02-15.pdf",
+      "transcript": "txt/deseret/DesNews/corrected/1860-02-15.txt",
+      "category": "newspapers",
+      "year": 1860
+    },
+    {
+      "id": "DN-1860-02-22",
+      "title": "Deseret News - Feb 22, 1860",
+      "source": "txt/deseret/DesNews/pdfs/1860-02-22.pdf",
+      "transcript": "txt/deseret/DesNews/corrected/1860-02-22.txt",
+      "category": "newspapers",
+      "year": 1860
+    },
+    {
+      "id": "DN-1860-02-29",
+      "title": "Deseret News - Feb 29, 1860",
+      "source": "txt/deseret/DesNews/pdfs/1860-02-29.pdf",
+      "transcript": "txt/deseret/DesNews/corrected/1860-02-29.txt",
+      "category": "newspapers",
+      "year": 1860
+    },
+    {
+      "id": "DN-1860-03-07",
+      "title": "Deseret News - Mar 7, 1860",
+      "source": "txt/deseret/DesNews/pdfs/1860-03-07.pdf",
+      "transcript": "txt/deseret/DesNews/corrected/1860-03-07.txt",
+      "category": "newspapers",
+      "year": 1860
+    },
+    {
+      "id": "DN-1860-03-14",
+      "title": "Deseret News - Mar 14, 1860",
+      "source": "txt/deseret/DesNews/pdfs/1860-03-14.pdf",
+      "transcript": "txt/deseret/DesNews/corrected/1860-03-14.txt",
+      "category": "newspapers",
+      "year": 1860
+    },
+    {
+      "id": "DN-1860-03-21",
+      "title": "Deseret News - Mar 21, 1860",
+      "source": "txt/deseret/DesNews/pdfs/1860-03-21.pdf",
+      "transcript": "txt/deseret/DesNews/corrected/1860-03-21.txt",
+      "category": "newspapers",
+      "year": 1860
+    },
+    {
+      "id": "DN-1860-04-11",
+      "title": "Deseret News - Apr 11, 1860",
+      "source": "txt/deseret/DesNews/pdfs/1860-04-11.pdf",
+      "transcript": "txt/deseret/DesNews/corrected/1860-04-11.txt",
+      "category": "newspapers",
+      "year": 1860
+    },
+    {
+      "id": "DN-1860-04-18",
+      "title": "Deseret News - Apr 18, 1860",
+      "source": "txt/deseret/DesNews/pdfs/1860-04-18.pdf",
+      "transcript": "txt/deseret/DesNews/corrected/1860-04-18.txt",
+      "category": "newspapers",
+      "year": 1860
+    },
+    {
+      "id": "DN-1860-05-02",
+      "title": "Deseret News - May 2, 1860",
+      "source": "txt/deseret/DesNews/pdfs/1860-05-02.pdf",
+      "transcript": "txt/deseret/DesNews/corrected/1860-05-02.txt",
+      "category": "newspapers",
+      "year": 1860
+    },
+    {
+      "id": "DN-1864-05-11",
+      "title": "Deseret News - May 11, 1864",
+      "source": "txt/deseret/DesNews/pdfs/1864-05-11.pdf",
+      "transcript": "txt/deseret/DesNews/corrected/1864-05-11.txt",
+      "category": "newspapers",
+      "year": 1864
+    },
+    {
+      "id": "DN-1864-05-18",
+      "title": "Deseret News - May 18, 1864",
+      "source": "txt/deseret/DesNews/pdfs/1864-05-18.pdf",
+      "transcript": "txt/deseret/DesNews/corrected/1864-05-18.txt",
+      "category": "newspapers",
+      "year": 1864
+    },
+    {
+      "id": "DN-1864-05-25",
+      "title": "Deseret News - May 25, 1864",
+      "source": "txt/deseret/DesNews/pdfs/1864-05-25.pdf",
+      "transcript": "txt/deseret/DesNews/corrected/1864-05-25.txt",
+      "category": "newspapers",
+      "year": 1864
+    },
+    {
+      "id": "DN-1864-06-01",
+      "title": "Deseret News - Jun 1, 1864",
+      "source": "txt/deseret/DesNews/pdfs/1864-06-01.pdf",
+      "transcript": "txt/deseret/DesNews/corrected/1864-06-01.txt",
+      "category": "newspapers",
+      "year": 1864
+    },
+    {
+      "id": "DN-1864-06-08",
+      "title": "Deseret News - Jun 8, 1864",
+      "source": "txt/deseret/DesNews/pdfs/1864-06-08.pdf",
+      "transcript": "txt/deseret/DesNews/corrected/1864-06-08.txt",
+      "category": "newspapers",
+      "year": 1864
+    },
+    {
+      "id": "DN-1864-06-15",
+      "title": "Deseret News - Jun 15, 1864",
+      "source": "txt/deseret/DesNews/pdfs/1864-06-15.pdf",
+      "transcript": "txt/deseret/DesNews/corrected/1864-06-15.txt",
+      "category": "newspapers",
+      "year": 1864
+    },
+    {
+      "id": "DN-1864-06-22",
+      "title": "Deseret News - Jun 22, 1864",
+      "source": "txt/deseret/DesNews/pdfs/1864-06-22.pdf",
+      "transcript": "txt/deseret/DesNews/corrected/1864-06-22.txt",
+      "category": "newspapers",
+      "year": 1864
+    },
+    {
+      "id": "DN-1864-06-29",
+      "title": "Deseret News - Jun 29, 1864",
+      "source": "txt/deseret/DesNews/pdfs/1864-06-29.pdf",
+      "transcript": "txt/deseret/DesNews/corrected/1864-06-29.txt",
+      "category": "newspapers",
+      "year": 1864
+    },
+    {
+      "id": "DN-1864-07-06",
+      "title": "Deseret News - Jul 6, 1864",
+      "source": "txt/deseret/DesNews/pdfs/1864-07-06.pdf",
+      "transcript": "txt/deseret/DesNews/corrected/1864-07-06.txt",
+      "category": "newspapers",
+      "year": 1864
+    },
+    {
+      "id": "DN-1864-07-13",
+      "title": "Deseret News - Jul 13, 1864",
+      "source": "txt/deseret/DesNews/pdfs/1864-07-13.pdf",
+      "transcript": "txt/deseret/DesNews/corrected/1864-07-13.txt",
+      "category": "newspapers",
+      "year": 1864
+    },
+    {
+      "id": "DN-1864-07-20",
+      "title": "Deseret News - Jul 20, 1864",
+      "source": "txt/deseret/DesNews/pdfs/1864-07-20.pdf",
+      "transcript": "txt/deseret/DesNews/corrected/1864-07-20.txt",
+      "category": "newspapers",
+      "year": 1864
+    },
+    {
+      "id": "DN-1864-07-27",
+      "title": "Deseret News - Jul 27, 1864",
+      "source": "txt/deseret/DesNews/pdfs/1864-07-27.pdf",
+      "transcript": "txt/deseret/DesNews/corrected/1864-07-27.txt",
+      "category": "newspapers",
+      "year": 1864
+    },
+    {
+      "id": "DN-1864-08-10",
+      "title": "Deseret News - Aug 10, 1864",
+      "source": "txt/deseret/DesNews/pdfs/1864-08-10.pdf",
+      "transcript": "txt/deseret/DesNews/corrected/1864-08-10.txt",
+      "category": "newspapers",
+      "year": 1864
+    },
+    {
+      "id": "DN-1864-08-17",
+      "title": "Deseret News - Aug 17, 1864",
+      "source": "txt/deseret/DesNews/pdfs/1864-08-17.pdf",
+      "transcript": "txt/deseret/DesNews/corrected/1864-08-17.txt",
+      "category": "newspapers",
+      "year": 1864
+    },
+    {
+      "id": "DN-1864-08-24",
+      "title": "Deseret News - Aug 24, 1864",
+      "source": "txt/deseret/DesNews/pdfs/1864-08-24.pdf",
+      "transcript": "txt/deseret/DesNews/corrected/1864-08-24.txt",
+      "category": "newspapers",
+      "year": 1864
+    },
+    {
+      "id": "DN-1864-11-02",
+      "title": "Deseret News - Nov 2, 1864",
+      "source": "txt/deseret/DesNews/pdfs/1864-11-02.pdf",
+      "transcript": "txt/deseret/DesNews/corrected/1864-11-02.txt",
+      "category": "newspapers",
+      "year": 1864
+    },
+    {
+      "id": "DN-1864-11-16",
+      "title": "Deseret News - Nov 16, 1864",
+      "source": "txt/deseret/DesNews/pdfs/1864-11-16.pdf",
+      "transcript": "txt/deseret/DesNews/corrected/1864-11-16.txt",
+      "category": "newspapers",
+      "year": 1864
+    },
+    {
+      "id": "DN-1864-11-30",
+      "title": "Deseret News - Nov 30, 1864",
+      "source": "txt/deseret/DesNews/pdfs/1864-11-30.pdf",
+      "transcript": "txt/deseret/DesNews/corrected/1864-11-30.txt",
+      "category": "newspapers",
+      "year": 1864
+    },
+    {
+      "id": "DN-1864-12-28",
+      "title": "Deseret News - Dec 28, 1864",
+      "source": "txt/deseret/DesNews/pdfs/1864-12-28.pdf",
+      "transcript": "txt/deseret/DesNews/corrected/1864-12-28.txt",
+      "category": "newspapers",
+      "year": 1864
+    },
+    {
+      "id": "HDOJ-1859-06-05",
+      "title": "Historian's Daily Office Journal - Jun 5, 1859",
+      "source": "",
+      "transcript": "txt/deseret/HDOJ/1859-06-05.txt",
+      "category": "journals",
+      "year": 1859
+    },
+    {
+      "id": "HDOJ-1859-06-06",
+      "title": "Historian's Daily Office Journal - Jun 6, 1859",
+      "source": "",
+      "transcript": "txt/deseret/HDOJ/1859-06-06.txt",
+      "category": "journals",
+      "year": 1859
+    },
+    {
+      "id": "HDOJ-1859-06-20",
+      "title": "Historian's Daily Office Journal - Jun 20, 1859",
+      "source": "",
+      "transcript": "txt/deseret/HDOJ/1859-06-20.txt",
+      "category": "journals",
+      "year": 1859
+    },
+    {
+      "id": "HDOJ-1859-06-21",
+      "title": "Historian's Daily Office Journal - Jun 21, 1859",
+      "source": "",
+      "transcript": "txt/deseret/HDOJ/1859-06-21.txt",
+      "category": "journals",
+      "year": 1859
+    },
+    {
+      "id": "HDOJ-1859-06-22",
+      "title": "Historian's Daily Office Journal - Jun 22, 1859",
+      "source": "",
+      "transcript": "txt/deseret/HDOJ/1859-06-22.txt",
+      "category": "journals",
+      "year": 1859
+    },
+    {
+      "id": "HDOJ-1859-06-23",
+      "title": "Historian's Daily Office Journal - Jun 23, 1859",
+      "source": "",
+      "transcript": "txt/deseret/HDOJ/1859-06-23.txt",
+      "category": "journals",
+      "year": 1859
+    },
+    {
+      "id": "HDOJ-1859-06-24",
+      "title": "Historian's Daily Office Journal - Jun 24, 1859",
+      "source": "",
+      "transcript": "txt/deseret/HDOJ/1859-06-24.txt",
+      "category": "journals",
+      "year": 1859
+    },
+    {
+      "id": "HDOJ-1859-06-25",
+      "title": "Historian's Daily Office Journal - Jun 25, 1859",
+      "source": "",
+      "transcript": "txt/deseret/HDOJ/1859-06-25.txt",
+      "category": "journals",
+      "year": 1859
+    },
+    {
+      "id": "HDOJ-1859-06-27",
+      "title": "Historian's Daily Office Journal - Jun 27, 1859",
+      "source": "",
+      "transcript": "txt/deseret/HDOJ/1859-06-27.txt",
+      "category": "journals",
+      "year": 1859
+    },
+    {
+      "id": "HDOJ-1859-06-28",
+      "title": "Historian's Daily Office Journal - Jun 28, 1859",
+      "source": "",
+      "transcript": "txt/deseret/HDOJ/1859-06-28.txt",
+      "category": "journals",
+      "year": 1859
+    },
+    {
+      "id": "HDOJ-1859-06-29",
+      "title": "Historian's Daily Office Journal - Jun 29, 1859",
+      "source": "",
+      "transcript": "txt/deseret/HDOJ/1859-06-29.txt",
+      "category": "journals",
+      "year": 1859
+    },
+    {
+      "id": "HDOJ-1859-06-30",
+      "title": "Historian's Daily Office Journal - Jun 30, 1859",
+      "source": "",
+      "transcript": "txt/deseret/HDOJ/1859-06-30.txt",
+      "category": "journals",
+      "year": 1859
+    },
+    {
+      "id": "HDOJ-1859-07-04",
+      "title": "Historian's Daily Office Journal - Jul 4, 1859",
+      "source": "",
+      "transcript": "txt/deseret/HDOJ/1859-07-04.txt",
+      "category": "journals",
+      "year": 1859
+    },
+    {
+      "id": "MHBY-H",
+      "title": "Manuscript History of Brigham Young, Book H",
+      "source": "pdf/deseret/MHBY-H",
+      "transcript": "txt/deseret/MHBY-H.txt",
+      "category": "journals",
+      "year": "1859"
+    },
+    {
+      "id": "MHBY-I",
+      "title": "Manuscript History of Brigham Young, Book I",
+      "source": "pdf/deseret/MHBY-I",
+      "transcript": "txt/deseret/MHBY-I.txt",
+      "category": "journals",
+      "year": "1859"
+    },
+    {
+      "id": "MHBY-L",
+      "title": "Manuscript History of Brigham Young, Letterpress",
+      "source": "pdf/deseret/MHBY-L",
+      "transcript": "txt/deseret/MHBY-L.txt",
+      "category": "journals",
+      "year": "1859"
+    }
+  ]
+}

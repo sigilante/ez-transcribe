@@ -1,0 +1,618 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { 
+            display: flex; 
+            height: 100vh; 
+            font-family: monospace;
+            overflow: hidden;
+        }
+        #viewer-pane { 
+            width: 50%; 
+            border-right: 1px solid #ccc;
+            overflow-y: auto;
+            background: #2a2a2a;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px;
+        }
+        #viewer-pane img, #viewer-pane canvas {
+            max-width: 100%;
+            margin: 10px 0;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+        }
+        #viewer-pane canvas {
+            background: white;
+        }
+        #editor-pane { 
+            width: 50%; 
+            display: flex;
+            flex-direction: column;
+        }
+        #editor-header {
+            padding: 8px;
+            background: #f5f5f5;
+            border-bottom: 1px solid #ddd;
+            font-size: 12px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        #editor-header-left {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+        #doc-selector {
+            padding: 6px 10px;
+            border: 1px solid #ccc;
+            border-radius: 3px;
+            font-size: 12px;
+            font-family: monospace;
+            background: white;
+            cursor: pointer;
+            min-width: 250px;
+        }
+        #doc-selector:hover {
+            border-color: #999;
+        }
+        #doc-selector option {
+            padding: 4px;
+        }
+        #doc-selector optgroup {
+            font-weight: bold;
+            font-style: normal;
+        }
+        #header-section {
+            border-bottom: 1px solid #ddd;
+            background: #fafafa;
+        }
+        #header-toolbar {
+            background: #e8e8e8;
+            padding: 6px 8px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid #ddd;
+        }
+        #header-toolbar strong {
+            font-size: 11px;
+            color: #555;
+        }
+        #header-editor {
+            width: 100%;
+            height: 200px;
+            padding: 10px;
+            border: none;
+            font-family: monospace;
+            font-size: 12px;
+            resize: vertical;
+            background: #fafafa;
+        }
+        #editor-container {
+            flex: 1;
+            display: flex;
+            overflow: hidden;
+        }
+        #line-numbers {
+            padding: 10px 8px;
+            background: #f8f8f8;
+            border-right: 1px solid #ddd;
+            color: #666;
+            text-align: right;
+            user-select: none;
+            overflow: hidden;
+            min-width: 50px;
+            font-size: 14px;
+            line-height: 1.5;
+        }
+        #line-numbers div {
+            height: 21px;
+        }
+        #editor {
+            flex: 1;
+            padding: 10px;
+            border: none;
+            outline: none;
+            resize: none;
+            font-size: 14px;
+            line-height: 1.5;
+            white-space: pre;
+            overflow-wrap: normal;
+            overflow-x: auto;
+        }
+        .status { color: #666; margin-left: 10px; }
+        .status.saving { color: #ff9800; }
+        .status.saved { color: #4caf50; }
+        button {
+            padding: 4px 10px;
+            cursor: pointer;
+            border: 1px solid #ccc;
+            background: white;
+            font-size: 11px;
+            border-radius: 3px;
+        }
+        button:hover {
+            background: #f0f0f0;
+        }
+        .pdf-page-container {
+            margin: 10px 0;
+            background: white;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+            position: relative;
+        }
+        .pdf-page-number {
+            position: absolute;
+            top: 5px;
+            right: 5px;
+            background: rgba(0,0,0,0.7);
+            color: white;
+            padding: 3px 8px;
+            border-radius: 3px;
+            font-size: 11px;
+        }
+    </style>
+</head>
+<body>
+    <div id="viewer-pane"></div>
+    <div id="editor-pane">
+        <div id="editor-header">
+            <div id="editor-header-left">
+                <select id="doc-selector">
+                    <option value="">Loading documents...</option>
+                </select>
+                <button id="toggle-header-btn">Add Header</button>
+            </div>
+            <span class="status" id="status"></span>
+        </div>
+        
+        <div id="header-section" style="display: none;">
+            <div id="header-toolbar">
+                <strong>Document Header</strong>
+                <button id="collapse-header">Hide</button>
+            </div>
+            <textarea id="header-editor" spellcheck="false"></textarea>
+        </div>
+        
+        <div id="editor-container">
+            <div id="line-numbers"></div>
+            <textarea id="editor" spellcheck="false"></textarea>
+        </div>
+    </div>
+
+    <!-- PDF.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+    <script>
+        pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
+
+        const docId = new URLSearchParams(location.search).get('doc') || 'default';
+        const ws = new WebSocket(`ws://localhost:8000/ws/${docId}`);
+        const editor = document.getElementById('editor');
+        const headerEditor = document.getElementById('header-editor');
+        const lineNumbers = document.getElementById('line-numbers');
+        const status = document.getElementById('status');
+        const viewer = document.getElementById('viewer-pane');
+        const headerSection = document.getElementById('header-section');
+        const toggleHeaderBtn = document.getElementById('toggle-header-btn');
+        const collapseHeaderBtn = document.getElementById('collapse-header');
+        const docSelector = document.getElementById('doc-selector');
+
+        let saveTimeout;
+        let currentContent = '';
+        let imageElements = [];
+        let lastSyncedScan = -1;
+        let documentHeader = '';
+        let headerVisible = false;
+        let allDocuments = [];
+
+        const HEADER_TEMPLATE = `--------------------------------------------------
+                      * * *
+--------------------------------------------------
+                   [DOCUMENT TITLE]
+
+                    [SUBTITLE]
+--------------------------------------------------
+             * * * * * * * * * * * *
+--------------------------------------------------
+
+COPYRIGHT INFORMATION
+
+[Copyright and licensing information]
+
+CITATION FOR THIS TRANSCRIPTION
+
+[Citation information]
+
+TRANSCRIPTION CONVENTIONS
+
+[Document-specific conventions]
+
+--------------------------------------------------
+TRANSCRIPTION © [YEAR]
+--------------------------------------------------`;
+
+        // Load documents list for selector
+        function loadDocumentsList() {
+            fetch('/api/documents')
+                .then(r => r.json())
+                .then(data => {
+                    allDocuments = data.documents;
+                    populateDocumentSelector();
+                });
+        }
+
+        function populateDocumentSelector() {
+            // Group documents by category
+            const byCategory = {};
+            allDocuments.forEach(doc => {
+                const cat = doc.category || 'other';
+                if (!byCategory[cat]) byCategory[cat] = [];
+                byCategory[cat].push(doc);
+            });
+
+            // Build selector options
+            docSelector.innerHTML = '';
+            
+            // Sort categories
+            const categories = Object.keys(byCategory).sort();
+            
+            categories.forEach(category => {
+                const optgroup = document.createElement('optgroup');
+                optgroup.label = category.charAt(0).toUpperCase() + category.slice(1);
+                
+                byCategory[category]
+                    .sort((a, b) => {
+                        // Sort by year then title
+                        if (a.year !== b.year) return (a.year || 0) - (b.year || 0);
+                        return a.title.localeCompare(b.title);
+                    })
+                    .forEach(doc => {
+                        const option = document.createElement('option');
+                        option.value = doc.id;
+                        option.textContent = doc.title;
+                        if (doc.id === docId) {
+                            option.selected = true;
+                        }
+                        optgroup.appendChild(option);
+                    });
+                
+                docSelector.appendChild(optgroup);
+            });
+        }
+
+        // Handle document selection change
+        docSelector.addEventListener('change', (e) => {
+            const newDocId = e.target.value;
+            if (newDocId && newDocId !== docId) {
+                // Save current document before switching
+                if (editor.value !== currentContent) {
+                    save();
+                }
+                // Navigate to new document
+                window.location.href = `/?doc=${newDocId}`;
+            }
+        });
+
+        function parseDocument(text) {
+            const headerMatch = text.match(/^===HEADER===([\s\S]*?)===END HEADER===/);
+            if (headerMatch) {
+                return {
+                    header: headerMatch[1].trim(),
+                    content: text.slice(headerMatch[0].length).trim()
+                };
+            }
+            return {
+                header: '',
+                content: text
+            };
+        }
+
+        function serializeDocument() {
+            if (documentHeader.trim()) {
+                return `===HEADER===\n${documentHeader.trim()}\n===END HEADER===\n\n${editor.value}`;
+            }
+            return editor.value;
+        }
+
+        function showHeader() {
+            headerSection.style.display = 'block';
+            headerVisible = true;
+            toggleHeaderBtn.textContent = 'Hide Header';
+        }
+
+        function hideHeader() {
+            headerSection.style.display = 'none';
+            headerVisible = false;
+            toggleHeaderBtn.textContent = documentHeader ? 'Show Header' : 'Add Header';
+        }
+
+        toggleHeaderBtn.addEventListener('click', () => {
+            if (!documentHeader) {
+                documentHeader = HEADER_TEMPLATE;
+                headerEditor.value = documentHeader;
+                showHeader();
+                debouncedSave();
+            } else {
+                if (headerVisible) {
+                    hideHeader();
+                } else {
+                    showHeader();
+                }
+            }
+        });
+
+        collapseHeaderBtn.addEventListener('click', hideHeader);
+
+        headerEditor.addEventListener('input', () => {
+            documentHeader = headerEditor.value;
+            debouncedSave();
+        });
+
+        function getCurrentPageData() {
+            const cursorPos = editor.selectionStart;
+            const textUpToCursor = editor.value.substring(0, cursorPos);
+            const lines = textUpToCursor.split('\n');
+            
+            let tomlDepth = 0;
+            let currentScan = 1;
+            let currentPage = '';
+            
+            for (let i = 0; i < lines.length; i++) {
+                const line = lines[i].trim();
+                
+                if (line === '+++') {
+                    tomlDepth++;
+                }
+                
+                const scanMatch = line.match(/^scan\s*=\s*(\d+)/);
+                if (scanMatch) currentScan = parseInt(scanMatch[1]);
+                
+                const pageMatch = line.match(/^page\s*=\s*["']?([^"'\s#]+)/);
+                if (pageMatch) currentPage = pageMatch[1];
+            }
+            
+            return { scan: currentScan, page: currentPage };
+        }
+
+        function syncViewerToScan(scanNum) {
+            if (scanNum === lastSyncedScan) return;
+            if (scanNum <= 0 || scanNum > imageElements.length) return;
+            
+            lastSyncedScan = scanNum;
+            const targetImg = imageElements[scanNum - 1];
+            if (targetImg) {
+                imageElements.forEach(img => img.style.border = '');
+                targetImg.style.border = '4px solid #4caf50';
+                targetImg.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            }
+        }
+
+        async function renderPDF(url) {
+            try {
+                const pdf = await pdfjsLib.getDocument(url).promise;
+                const numPages = pdf.numPages;
+                
+                for (let pageNum = 1; pageNum <= numPages; pageNum++) {
+                    const page = await pdf.getPage(pageNum);
+                    const viewport = page.getViewport({ scale: 1.5 });
+                    
+                    const container = document.createElement('div');
+                    container.className = 'pdf-page-container';
+                    
+                    const canvas = document.createElement('canvas');
+                    canvas.dataset.scanNum = pageNum;
+                    canvas.style.transition = 'border 0.3s';
+                    const context = canvas.getContext('2d');
+                    canvas.height = viewport.height;
+                    canvas.width = viewport.width;
+                    
+                    const pageLabel = document.createElement('div');
+                    pageLabel.className = 'pdf-page-number';
+                    pageLabel.textContent = `Page ${pageNum}`;
+                    
+                    container.appendChild(canvas);
+                    container.appendChild(pageLabel);
+                    viewer.appendChild(container);
+                    imageElements.push(canvas);
+                    
+                    await page.render({
+                        canvasContext: context,
+                        viewport: viewport
+                    }).promise;
+                }
+            } catch (error) {
+                console.error('Error rendering PDF:', error);
+                viewer.innerHTML = `<div style="color:white;padding:20px;">Error loading PDF: ${error.message}</div>`;
+            }
+        }
+
+        function updateLineNumbers() {
+            const textLines = editor.value.split('\n');
+            let html = '';
+            let lineInPage = 0;
+            let inToml = false;
+            let skipNextBullet = false;
+            let pendingScanNum = null;
+            
+            textLines.forEach((line, idx) => {
+                const trimmed = line.trim();
+                
+                if (trimmed === '+++' && !inToml) {
+                    inToml = true;
+                    
+                    let pageNum = '?';
+                    let scanNum = '?';
+                    let foundClosing = false;
+                    
+                    for (let i = idx + 1; i < textLines.length && !foundClosing; i++) {
+                        const nextLine = textLines[i].trim();
+                        
+                        if (nextLine === '+++') {
+                            foundClosing = true;
+                            break;
+                        }
+                        
+                        const pageMatch = nextLine.match(/^page\s*=\s*["']?([^"'\s#]+)/);
+                        if (pageMatch) pageNum = pageMatch[1] || '?';
+                        
+                        const scanMatch = nextLine.match(/^scan\s*=\s*(\d+)/);
+                        if (scanMatch) scanNum = scanMatch[1];
+                    }
+                    
+                    html += `<div style="background:#e0e0e0;padding:2px 4px;font-weight:bold;font-size:11px;border-top:2px solid #999;">p.${pageNum}</div>`;
+                    lineInPage = 0;
+                    skipNextBullet = true;
+                    pendingScanNum = scanNum;
+                    return;
+                }
+                
+                if (trimmed === '+++' && inToml) {
+                    inToml = false;
+                    html += '<div style="color:#999;">•</div>';
+                    return;
+                }
+                
+                if (inToml) {
+                    if (skipNextBullet && pendingScanNum) {
+                        html += `<div style="background:#f0f0f0;padding:2px 4px;font-size:10px;color:#666;">s.${pendingScanNum}</div>`;
+                        skipNextBullet = false;
+                        pendingScanNum = null;
+                    } else {
+                        html += '<div style="color:#999;">•</div>';
+                    }
+                    return;
+                }
+                
+                if (trimmed === '<<<>>>') {
+                    html += '<div style="background:#999;color:#fff;text-align:center;font-size:10px;line-height:21px;">━━━</div>';
+                    lineInPage = 0;
+                    return;
+                }
+                
+                if (trimmed.length > 0) {
+                    lineInPage++;
+                    html += `<div>${lineInPage}</div>`;
+                } else {
+                    html += '<div style="color:#ccc;">·</div>';
+                }
+            });
+            
+            lineNumbers.innerHTML = html;
+        }
+
+        // Initialize
+        loadDocumentsList();
+
+        ws.onopen = () => {
+            ws.send(JSON.stringify({ action: 'load' }));
+            fetch(`/api/images/${docId}`)
+                .then(r => r.json())
+                .then(data => {
+                    if (data.type === 'pdf') {
+                        renderPDF(data.path);
+                    } else if (data.type === 'images' && data.images) {
+                        data.images.forEach((src, idx) => {
+                            const img = document.createElement('img');
+                            img.src = src;
+                            img.dataset.scanNum = idx + 1;
+                            img.style.transition = 'border 0.3s';
+                            viewer.appendChild(img);
+                            imageElements.push(img);
+                        });
+                    }
+                });
+        };
+
+        ws.onmessage = (event) => {
+            const data = JSON.parse(event.data);
+            if (data.status === 'loaded') {
+                const parsed = parseDocument(data.content);
+                documentHeader = parsed.header;
+                editor.value = parsed.content;
+                currentContent = data.content;
+                
+                if (documentHeader) {
+                    headerEditor.value = documentHeader;
+                    toggleHeaderBtn.textContent = 'Show Header';
+                }
+                
+                updateLineNumbers();
+            } else if (data.status === 'saved') {
+                currentContent = serializeDocument();
+                status.textContent = '✓ saved';
+                status.className = 'status saved';
+                setTimeout(() => status.textContent = '', 2000);
+            }
+        };
+
+        function save() {
+            const serialized = serializeDocument();
+            if (serialized === currentContent) return;
+            status.textContent = 'saving...';
+            status.className = 'status saving';
+            ws.send(JSON.stringify({
+                action: 'save',
+                content: serialized
+            }));
+        }
+
+        function debouncedSave() {
+            clearTimeout(saveTimeout);
+            saveTimeout = setTimeout(save, 1000);
+        }
+
+        editor.addEventListener('input', () => {
+            updateLineNumbers();
+            debouncedSave();
+        });
+
+        editor.addEventListener('blur', save);
+
+        let syncTimeout;
+
+        editor.addEventListener('click', () => {
+            clearTimeout(syncTimeout);
+            syncTimeout = setTimeout(() => {
+                const pageData = getCurrentPageData();
+                syncViewerToScan(pageData.scan);
+            }, 150);
+        });
+
+        editor.addEventListener('keydown', (e) => {
+            if (['ArrowUp', 'ArrowDown', 'PageUp', 'PageDown', 'Home', 'End'].includes(e.key)) {
+                clearTimeout(syncTimeout);
+                syncTimeout = setTimeout(() => {
+                    const pageData = getCurrentPageData();
+                    syncViewerToScan(pageData.scan);
+                }, 150);
+            }
+            
+            if (e.ctrlKey && e.key === 'Enter') {
+                e.preventDefault();
+                const pageData = getCurrentPageData();
+                const nextScan = pageData.scan + 1;
+                
+                const pos = editor.selectionStart;
+                const pageBreak = `\n+++\npage = ""\nscan = ${nextScan}\n+++\n`;
+                
+                const before = editor.value.substring(0, pos);
+                const after = editor.value.substring(pos);
+                editor.value = before + pageBreak + after;
+                editor.selectionStart = editor.selectionEnd = pos + pageBreak.length;
+                
+                updateLineNumbers();
+                debouncedSave();
+                syncViewerToScan(nextScan);
+            }
+        });
+
+        editor.addEventListener('scroll', () => {
+            lineNumbers.scrollTop = editor.scrollTop;
+        });
+    </script>
+</body>
+</html>

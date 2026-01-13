@@ -1,0 +1,105 @@
+===HEADER===
+--------------------------------------------------
+                      * * *
+--------------------------------------------------
+                   [DOCUMENT TITLE]
+
+                    [SUBTITLE]
+--------------------------------------------------
+             * * * * * * * * * * * *
+--------------------------------------------------
+
+COPYRIGHT INFORMATION
+
+[Copyright and licensing information]
+
+CITATION FOR THIS TRANSCRIPTION
+
+[Citation information]
+
+TRANSCRIPTION CONVENTIONS
+
+[Document-specific conventions]
+
+--------------------------------------------------
+TRANSCRIPTION © [YEAR]
+--------------------------------------------------
+===END HEADER===
+
++++
+page = ""
+scan = 1
+notes = "cover"
++++
+<<<>>>
++++
+page = ""
+scan = 2
+notes = "inside cover, endpaper"
++++
+<<<>>>
++++
+page = ""
+scan = 3
+notes = "inside cover, endpaper"
++++
+<<<>>>
++++
+page = ""
+scan = 4
+notes = "blank page"
++++
+<<<>>>
++++
+page = ""
+scan = 5
+notes = "blank page"
++++
+<<<>>>
++++
+page = ""
+scan = 6
+notes = "blank page"
++++
+<<<>>>
++++
+page = ""
+scan = 7
+notes = "blank page"
++++
+|first line of page 5
+|second line
+|
+|[illegible]
+|verse continues here
+<<<>>>
++++
+page = ""
+scan = 8
+notes = "blank page"
++++
+<<<>>>
++++
+page = ""
+scan = 9
+notes = "blank page"
++++
+<<<>>>
++++
+page = ""
+scan = 10
+notes = "pasted specimen"
++++
+<<<>>>
++++
+page = "1"
+scan = 11
++++
+𐐐𐐮𐑅𐐻𐐲𐑉𐐮 𐐱𐑂 𐐒𐑉𐐮𐑀𐐸𐐰𐑋 𐐏𐐱𐑍.
+𐐕𐐰𐐹𐐻𐑉 1.
+<<<>>>
++++
+page = "2"
+scan = 12
++++
+<<<>>>
