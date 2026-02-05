@@ -28,9 +28,14 @@
             padding: 0;
         }
 
-        #viewer-pane img,
         #viewer-pane canvas {
             max-width: none;
+            margin: 10px 0;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+        }
+
+        #viewer-pane img {
+            width: 100%;
             margin: 10px 0;
             box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
         }
@@ -315,7 +320,8 @@
         pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
 
         const docId = new URLSearchParams(location.search).get('doc') || 'default';
-        const ws = new WebSocket(`ws://localhost:8000/ws/${docId}`);
+        const wsProto = location.protocol === 'https:' ? 'wss:' : 'ws:';
+        const ws = new WebSocket(`${wsProto}//${location.host}/ws/${docId}`);
         const editor = document.getElementById('editor');
         const headerEditor = document.getElementById('header-editor');
         const lineNumbers = document.getElementById('line-numbers');
@@ -747,6 +753,7 @@ TRANSCRIPTION © [YEAR]
                     } else if (data.type === 'images' && data.images) {
                         document.getElementById('viewer-controls').style.display = 'none';
                         const scrollContainer = document.getElementById('viewer-scroll-container');
+                        scrollContainer.style.overflowX = 'hidden';
 
                         data.images.forEach((src, idx) => {
                             const img = document.createElement('img');

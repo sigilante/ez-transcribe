@@ -5,7 +5,10 @@ from pathlib import Path
 from dataclasses import dataclass
 from typing import List, Optional
 from pydantic import BaseModel
-import tomllib
+try:
+    import tomllib
+except ModuleNotFoundError:
+    import tomli as tomllib
 import re
 import json
 from datetime import datetime
@@ -21,17 +24,17 @@ WORK_DIR.mkdir(exist_ok=True)
 
 def load_config():
     if CONFIG_FILE.exists():
-        with open(CONFIG_FILE) as f:
+        with open(CONFIG_FILE, encoding='utf-8') as f:
             return json.load(f)
     return {"repo_path": None}
 
 def save_config(config):
-    with open(CONFIG_FILE, 'w') as f:
+    with open(CONFIG_FILE, 'w', encoding='utf-8') as f:
         json.dump(config, f, indent=2)
 
 def load_documents():
     if DOCS_FILE.exists():
-        with open(DOCS_FILE) as f:
+        with open(DOCS_FILE, encoding='utf-8') as f:
             return json.load(f)
     return {"documents": []}
 
@@ -167,8 +170,10 @@ async def get_images(doc_id: str):
     # Handle image directory
     if source_path.is_dir():
         images = []
-        for ext in ["*.jpg", "*.jpeg", "*.png", "*.tif", "*.tiff"]:
-            images.extend(sorted(source_path.glob(ext)))
+        for ext in ["*.jpg", "*.jpeg", "*.png", "*.tif", "*.tiff",
+                    "*.JPG", "*.JPEG", "*.PNG", "*.TIF", "*.TIFF"]:
+            images.extend(source_path.glob(ext))
+        images.sort(key=lambda p: p.name.lower())
         
         return {
             "type": "images",
@@ -195,7 +200,7 @@ async def get_metadata(doc_id: str) -> DocumentMetadata:
     if not transcript_path.exists():
         return DocumentMetadata(pages=[], total_lines=0)
     
-    content = transcript_path.read_text()
+    content = transcript_path.read_text(encoding='utf-8')
     pages = parse_transcript(content)
     
     return DocumentMetadata(
@@ -222,14 +227,14 @@ async def websocket_endpoint(websocket: WebSocket, doc_id: str):
         while True:
             data = await websocket.receive_json()
             if data["action"] == "save":
-                filepath.write_text(data["content"])
+                filepath.write_text(data["content"], encoding='utf-8')
                 await websocket.send_json({
                     "status": "saved",
                     "timestamp": datetime.now().isoformat(),
                     "path": str(filepath)
                 })
             elif data["action"] == "load":
-                content = filepath.read_text() if filepath.exists() else ""
+                content = filepath.read_text(encoding='utf-8') if filepath.exists() else ""
                 await websocket.send_json({
                     "status": "loaded",
                     "content": content
@@ -244,7 +249,7 @@ async def startup():
     if repo and repo.exists():
         # Unmount if already exists
         try:
-            app.mount("/repo", StaticFiles(directory=str(repo), follow_symlink=True), name="repo")
+            app.mount("/repo", StaticFiles(directory=str(repo)), name="repo")
             print(f"Mounted repo: {repo}")
         except Exception as e:
             print(f"Could not mount repo: {e}")
